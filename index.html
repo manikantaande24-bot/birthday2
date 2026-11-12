@@ -1,0 +1,3955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffe5f1">
+<title>A Special Birthday Celebration</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink:#ed65a6;
+  --dark-pink:#d83f87;
+  --light-pink:#fff0f7;
+  --purple:#a77bdb;
+  --text:#74445d;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  font-family:'Nunito',sans-serif;
+  background:#fff0f7;
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+body.intro-locked {
+  overflow:hidden;
+}
+
+/* INTRO */
+
+.intro-screen {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  height:100svh;
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  cursor:pointer;
+  background:#f8d9ec;
+  opacity:1;
+  visibility:visible;
+  transition:opacity 1.2s ease,visibility 1.2s ease;
+}
+
+.intro-screen.is-hidden {
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro-video {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  background:#f8d9ec;
+}
+
+.intro-overlay {
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:0 20px calc(38px + env(safe-area-inset-bottom));
+  background:transparent;
+  transition:opacity 0.5s ease;
+}
+
+.intro-overlay.started {
+  opacity:0;
+  pointer-events:none;
+}
+
+/* TAP TO OPEN — kid-style chunky button */
+
+.tap-button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:14px 30px;
+  border:2px solid rgba(255,255,255,0.95);
+  border-radius:50px;
+  background:linear-gradient(135deg,#ff8fc0,#f472b6 40%,#d83f87);
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:1.8px;
+  box-shadow:0 5px 0 #b12e6c, 0 10px 28px rgba(190,62,126,0.45);
+  animation:tapPulse 2.4s infinite ease-in-out;
+  cursor:pointer;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tap-button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 8px 0 #b12e6c, 0 16px 34px rgba(190,62,126,0.5);
+}
+
+.tap-button:active {
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #b12e6c, 0 5px 14px rgba(190,62,126,0.4);
+}
+
+.tap-icon {
+  font-size:20px;
+  line-height:1;
+  animation:wiggle 2.6s infinite ease-in-out;
+}
+
+@keyframes tapPulse {
+  0%,100% {
+    transform:translateY(0);
+  }
+  50% {
+    transform:translateY(-4px);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform:rotate(0deg); }
+  30% { transform:rotate(-12deg); }
+  60% { transform:rotate(12deg); }
+}
+
+/* MAIN WEBSITE */
+
+.website {
+  width:100%;
+  max-width:600px;
+  margin:0 auto;
+  background:white;
+  overflow:hidden;
+  box-shadow:0 0 50px rgba(212,105,163,0.12);
+}
+
+/* HERO SECTION */
+
+.hero {
+  position:relative;
+  width:100%;
+  height:100svh;
+  min-height:650px;
+  max-height:1100px;
+  overflow:hidden;
+  background:#f8d9ec;
+  perspective:1000px;
+  perspective-origin:50% 42%;
+}
+
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:-10%;
+  z-index:0;
+  background-image:url("Assets/herobg.png");
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  transform-origin:center center;
+  transform:var(
+    --hero-bg-transform,
+    translate3d(0,0,-60px) scale(1.12)
+  );
+  will-change:transform;
+  pointer-events:none;
+}
+
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,235,247,0.03),
+    rgba(255,230,245,0.05)
+  );
+  pointer-events:none;
+}
+
+.hero-art {
+  position:absolute;
+  inset:0;
+  z-index:2;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+  pointer-events:none;
+  transform-origin:50% 70%;
+  transform:var(
+    --hero-art-transform,
+    translate3d(0,0,50px) scale(1)
+  );
+  will-change:transform;
+}
+
+.hero-content {
+  position:absolute;
+  z-index:3;
+  top:18%;
+  left:0;
+  width:100%;
+  padding:0 18px;
+  text-align:center;
+  translate:0 0;
+  transform:var(
+    --hero-copy-transform,
+    translate3d(0,0,30px)
+  );
+  will-change:transform;
+  /* NOTE: the reveal animation now starts when the intro finishes,
+     see body.intro-complete .hero-content below */
+}
+
+.hero-small-title {
+  font-size:clamp(11px,3vw,14px);
+  font-weight:900;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#c74d91;
+  margin-bottom:9px;
+  text-shadow:0 1px 5px white;
+}
+
+.girl-name {
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(48px,13vw,82px);
+  line-height:1.15;
+  color:#e74997;
+  text-shadow:
+    0 2px 0 white,
+    0 4px 12px rgba(190,70,130,0.2);
+}
+
+.hero-subtitle {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(17px,4.5vw,25px);
+  font-weight:700;
+  color:#9a55a6;
+  margin-top:5px;
+  text-shadow:0 2px 8px white;
+}
+
+.hero-age {
+  display:inline-block;
+  margin-top:13px;
+  padding:7px 22px;
+  background:rgba(255,255,255,0.75);
+  border:1px solid rgba(236,111,169,0.5);
+  border-radius:30px;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:2px;
+  color:#da4b92;
+  backdrop-filter:blur(8px);
+}
+
+.scroll-hint {
+  position:absolute;
+  z-index:4;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  color:#bd5595;
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:2px;
+  text-shadow:0 1px 8px white;
+  animation:float 2s infinite ease-in-out;
+}
+
+.scroll-arrow {
+  display:block;
+  font-size:22px;
+  margin-top:2px;
+}
+
+@keyframes heroReveal {
+  from {
+    opacity:0;
+    translate:0 30px;
+  }
+  to {
+    opacity:1;
+    translate:0 0;
+  }
+}
+
+@keyframes float {
+  0%,100% {
+    transform:translate(-50%,0);
+  }
+  50% {
+    transform:translate(-50%,-8px);
+  }
+}
+
+/* ==========================================
+   HERO RISE-IN — plays ONLY when the intro
+   screen finishes (body.intro-complete).
+   Everything below uses the individual
+   `translate` property, so it never touches
+   the parallax `transform` values.
+========================================== */
+
+@keyframes heroBgFade {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+
+@keyframes heroArtRise {
+  from {
+    opacity:0;
+    translate:0 70px;
+  }
+  to {
+    opacity:1;
+    translate:0 0;
+  }
+}
+
+@keyframes scrollHintRise {
+  from {
+    opacity:0;
+    translate:0 20px;
+  }
+  to {
+    opacity:1;
+    translate:0 0;
+  }
+}
+
+/* Background softly fades in */
+
+body.intro-complete .hero::before {
+  animation:heroBgFade 1.6s ease both;
+}
+
+/* Characters rise up from below */
+
+body.intro-complete .hero-art {
+  animation:heroArtRise 1.5s cubic-bezier(0.22,0.9,0.3,1) 0.10s both;
+}
+
+/* Copy — the existing heroReveal, now triggered on intro exit */
+
+body.intro-complete .hero-content {
+  animation:heroReveal 1.6s ease both;
+}
+
+/* Scroll hint arrives last (existing float kept intact) */
+
+body.intro-complete .scroll-hint {
+  animation:
+    scrollHintRise 1s cubic-bezier(0.22,0.9,0.3,1) 0.85s both,
+    float 2s infinite ease-in-out 1.85s;
+}
+
+/* SECOND SECTION — DETAILS & VENUE */
+
+.details-section {
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  height:100svh;
+  min-height:680px;
+  max-height:1100px;
+  overflow:hidden;
+  padding:0;
+  background:#f6e7f5;
+  text-align:center;
+  color:#080808;
+  perspective:1100px;
+  perspective-origin:50% 45%;
+}
+
+.venue-bg {
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  background-image:url("Assets/venuebg.png");
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  transform-origin:center center;
+  transform:var(
+    --venue-bg-transform,
+    translate3d(0,0,-70px) scale(1.14)
+  );
+  will-change:transform;
+  pointer-events:none;
+}
+
+.details-section::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:rgba(255,255,255,0.015);
+  pointer-events:none;
+}
+
+.venue-art {
+  position:absolute;
+  inset:0;
+  z-index:2;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  pointer-events:none;
+  transform-origin:50% 90%;
+  transform:var(
+    --venue-art-transform,
+    translate3d(0,0,100px) scale(1)
+  );
+  will-change:transform;
+}
+
+.venue-copy {
+  position:absolute;
+  z-index:3;
+  top:4.5%;
+  left:0;
+  width:100%;
+  padding:0 12px;
+  text-align:center;
+  transform-origin:center top;
+  transform:var(
+    --venue-copy-transform,
+    translate3d(0,0,30px)
+  );
+  will-change:transform;
+}
+
+/* Venue text — pink/purple palette instead of black */
+
+.venue-month {
+  font-family:'Amatic SC',cursive;
+  font-size:clamp(43px,11vw,58px);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:#d83f87;
+  transform:rotate(-5deg);
+  margin-bottom:9px;
+  text-shadow:
+    0 2px 0 rgba(255,255,255,0.9),
+    0 3px 10px rgba(216,63,135,0.2);
+}
+
+.venue-date-row {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin:0 auto;
+  width:100%;
+  max-width:330px;
+}
+
+.venue-weekday,
+.venue-time {
+  font-family:'Amatic SC',cursive;
+  font-size:clamp(17px,4.5vw,23px);
+  font-weight:700;
+  letter-spacing:1px;
+  white-space:nowrap;
+  color:#a83b73;
+  text-shadow:0 1px 3px rgba(255,255,255,0.9);
+}
+
+.venue-day {
+  font-family:'Amatic SC',cursive;
+  font-size:clamp(43px,12vw,59px);
+  font-weight:700;
+  line-height:0.95;
+  padding:0 13px;
+  border-left:3px solid #ed65a6;
+  border-right:3px solid #ed65a6;
+  color:#d83f87;
+  text-shadow:
+    0 2px 0 rgba(255,255,255,0.9),
+    0 3px 10px rgba(216,63,135,0.2);
+}
+
+.venue-label {
+  font-family:'Amatic SC',cursive;
+  font-size:clamp(30px,8vw,39px);
+  font-weight:700;
+  letter-spacing:5px;
+  line-height:1;
+  color:#c74d91;
+  margin-top:20px;
+  margin-bottom:8px;
+  text-shadow:0 1px 4px rgba(255,255,255,0.9);
+}
+
+.venue-name {
+  font-family:'Amatic SC',cursive;
+  font-size:clamp(21px,5.3vw,28px);
+  font-weight:700;
+  letter-spacing:1.7px;
+  line-height:1.1;
+  text-transform:uppercase;
+  color:#9a55a6;
+  max-width:350px;
+  margin:0 auto 2px;
+  text-shadow:0 1px 4px rgba(255,255,255,0.9);
+}
+
+.venue-address {
+  font-family:'Amatic SC',cursive;
+  font-size:clamp(19px,4.8vw,25px);
+  font-weight:700;
+  letter-spacing:1.6px;
+  line-height:1.15;
+  text-transform:uppercase;
+  color:#a2557f;
+  max-width:350px;
+  margin:0 auto;
+  text-shadow:0 1px 3px rgba(255,255,255,0.9);
+}
+
+/* Google Maps button — kid-style chunky pink */
+
+.map-button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+  padding:11px 26px;
+  min-height:44px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ff8fc0,#f472b6 40%,#d83f87);
+  color:#fff;
+  text-decoration:none;
+  font-family:'Nunito',sans-serif;
+  font-size:clamp(12px,3.3vw,15px);
+  font-weight:900;
+  letter-spacing:1.6px;
+  box-shadow:0 5px 0 #b12e6c, 0 10px 22px rgba(190,62,126,0.35);
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+  cursor:pointer;
+}
+
+.map-button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 8px 0 #b12e6c, 0 14px 28px rgba(190,62,126,0.42);
+}
+
+.map-button:active {
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #b12e6c, 0 5px 12px rgba(190,62,126,0.3);
+}
+
+.map-button:focus-visible {
+  outline:2px solid #a72d68;
+  outline-offset:3px;
+}
+
+/* THIRD SECTION — COUNTDOWN */
+
+.countdown-section {
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  min-height:max(100svh,860px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:24px 0;
+  background:#fbe6f4;
+  text-align:center;
+  perspective:1400px;
+  perspective-origin:50% 45%;
+}
+
+/* Countdown background — STATIC (no parallax) */
+
+.countdown-bg {
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  background-image:url("Assets/countdownbg.png");
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  pointer-events:none;
+}
+
+.countdown-layout {
+  position:relative;
+  z-index:2;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+}
+
+.countdown-stage {
+  position:relative;
+  width:min(100%,480px);
+  aspect-ratio:9 / 16;
+  margin:0 auto;
+  transform-origin:50% 60%;
+  transform:var(
+    --countdown-art-transform,
+    translate3d(0,0,30px) scale(1)
+  );
+  will-change:transform;
+}
+
+.countdown-card-art {
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+}
+
+.countdown-heading {
+  position:absolute;
+  z-index:2;
+  top:4.2%;
+  left:8%;
+  width:84%;
+  text-align:center;
+  pointer-events:none;
+}
+
+.countdown-kicker {
+  margin-bottom:4px;
+  color:#c33e83;
+  font-size:clamp(8px,2.2vw,11px);
+  font-weight:900;
+  letter-spacing:1.8px;
+  line-height:1.2;
+  text-shadow:0 1px 5px rgba(255,255,255,0.95);
+}
+
+.countdown-title {
+  color:#c33e83;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(15px,4.1vw,22px);
+  font-weight:700;
+  line-height:1.12;
+  text-shadow:0 1px 5px rgba(255,255,255,0.98);
+}
+
+.countdown-grid {
+  position:absolute;
+  z-index:3;
+  left:22.7%;
+  top:43.2%;
+  width:54.7%;
+  height:29.2%;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  column-gap:3.6%;
+  row-gap:3.6%;
+}
+
+.countdown-cell {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  padding:2px;
+  text-align:center;
+}
+
+.time-number {
+  color:#d83f87;
+  font-size:clamp(19px,5.4vw,29px);
+  font-weight:900;
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 1px 0 rgba(255,255,255,0.9);
+}
+
+.time-label {
+  color:#a83b73;
+  font-size:clamp(7px,1.9vw,10px);
+  font-weight:900;
+  letter-spacing:1.2px;
+  line-height:1;
+}
+
+.countdown-note {
+  position:relative;
+  z-index:2;
+  max-width:90%;
+  margin:8px auto 0;
+  padding:5px 12px;
+  color:#a83b73;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.4;
+  text-align:center;
+  text-shadow:0 1px 5px rgba(255,255,255,0.95);
+  transform:var(
+    --countdown-copy-transform,
+    translate3d(0,0,50px)
+  );
+  will-change:transform;
+}
+
+/* FOURTH SECTION — GIFT REGISTRY */
+
+.gift-registry-section {
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  min-height:max(100svh,860px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:24px 0;
+  background:#fbe6f4;
+  text-align:center;
+  perspective:1400px;
+  perspective-origin:50% 45%;
+}
+
+/* Gift background — STATIC (no parallax) */
+
+.gift-registry-bg {
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  background-image:url("Assets/giftbg.png");
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  pointer-events:none;
+}
+
+.gift-registry-stage {
+  position:relative;
+  z-index:2;
+  width:min(100%,480px);
+  aspect-ratio:9 / 16;
+  margin:auto;
+  transform-origin:50% 60%;
+  transform:var(
+    --gift-art-transform,
+    translate3d(0,0,30px) scale(1)
+  );
+  will-change:transform;
+}
+
+.gift-registry-art {
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+}
+
+.gift-registry-copy {
+  position:absolute;
+  z-index:2;
+  top:19%;
+  left:8%;
+  width:84%;
+  text-align:center;
+  padding:0 8px;
+  pointer-events:none;
+}
+
+.gift-registry-kicker {
+  margin-bottom:7px;
+  color:#c33e83;
+  font-size:clamp(9px,2.4vw,12px);
+  font-weight:900;
+  letter-spacing:2px;
+  line-height:1.3;
+  text-shadow:0 1px 6px rgba(255,255,255,0.98);
+}
+
+.gift-registry-title {
+  color:#cf3f88;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,6.2vw,34px);
+  font-weight:700;
+  line-height:1.12;
+  text-shadow:0 2px 8px rgba(255,255,255,0.98);
+}
+
+.gift-registry-message {
+  max-width:330px;
+  margin:9px auto 0;
+  color:#a64a7b;
+  font-size:clamp(10px,2.8vw,13px);
+  font-weight:800;
+  line-height:1.55;
+  text-shadow:0 1px 6px rgba(255,255,255,0.98);
+}
+
+/* Gift registry button — kid-style chunky pink */
+
+.gift-button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:clamp(12px,3vw,18px);
+  padding:11px 26px;
+  min-height:44px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ff8fc0,#f472b6 40%,#d83f87);
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-size:clamp(10px,2.6vw,12px);
+  font-weight:900;
+  letter-spacing:1.4px;
+  box-shadow:0 5px 0 #b12e6c, 0 10px 22px rgba(190,62,126,0.35);
+  cursor:pointer;
+  pointer-events:auto;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gift-button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 8px 0 #b12e6c, 0 14px 28px rgba(190,62,126,0.42);
+}
+
+.gift-button:active {
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #b12e6c, 0 5px 12px rgba(190,62,126,0.3);
+}
+
+.gift-button:focus-visible {
+  outline:2px solid #a72d68;
+  outline-offset:3px;
+}
+
+/* ==========================================
+   FIFTH SECTION — GALLERY CAROUSEL
+   Background reuses giftbg.png (STATIC).
+========================================== */
+
+.gallery-section {
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  min-height:max(100svh,860px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:clamp(28px,7vw,48px) 0;
+  background:#fbe6f4;
+  text-align:center;
+  perspective:1400px;
+  perspective-origin:50% 45%;
+}
+
+/* Gallery background — STATIC (no parallax) */
+
+.gallery-bg {
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  background-image:url("Assets/giftbg.png");
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  pointer-events:none;
+}
+
+.gallery-inner {
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:520px;
+  margin:auto;
+  padding:0 16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:clamp(12px,3.5vw,20px);
+}
+
+.gallery-heading {
+  width:100%;
+  transform-origin:center top;
+  transform:var(
+    --gallery-copy-transform,
+    translate3d(0,0,50px)
+  );
+  will-change:transform;
+}
+
+.gallery-kicker {
+  margin-bottom:5px;
+  color:#b8337a;
+  font-size:clamp(9px,2.6vw,12px);
+  font-weight:900;
+  letter-spacing:2.2px;
+  line-height:1.2;
+  text-shadow:0 1px 5px rgba(255,255,255,0.95);
+}
+
+.gallery-title {
+  color:#cf3f88;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,7.4vw,36px);
+  font-weight:700;
+  line-height:1.05;
+  text-shadow:0 2px 8px rgba(255,255,255,0.95);
+}
+
+.gallery-description {
+  margin-top:4px;
+  color:#a2557f;
+  font-size:clamp(10px,2.9vw,13px);
+  font-weight:800;
+  line-height:1.4;
+  text-shadow:0 1px 5px rgba(255,255,255,0.95);
+}
+
+/* Parallax stage — the carousel lives inside this */
+
+.gallery-stage {
+  width:100%;
+  transform-origin:50% 60%;
+  transform:var(
+    --gallery-art-transform,
+    translate3d(0,0,30px) scale(1)
+  );
+  will-change:transform;
+}
+
+/* Carousel shell */
+
+.gallery-carousel {
+  position:relative;
+  width:100%;
+  display:flex;
+  align-items:center;
+  touch-action:pan-y;
+}
+
+.gallery-viewport {
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  border-radius:24px;
+  border:6px solid rgba(255,255,255,0.95);
+  background:rgba(255,255,255,0.6);
+  box-shadow:
+    0 12px 30px rgba(200,80,140,0.22),
+    0 2px 0 rgba(255,255,255,0.9) inset;
+  touch-action:pan-y;
+}
+
+.gallery-track {
+  display:flex;
+  flex-wrap:nowrap;
+  width:100%;
+  transform:translate3d(0,0,0);
+  transition:transform 0.65s cubic-bezier(0.33,0.9,0.35,1);
+  will-change:transform;
+}
+
+.gallery-slide {
+  flex:0 0 100%;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  margin:0;
+  aspect-ratio:4 / 5;
+  overflow:hidden;
+  background:#fdeaf4;
+}
+
+.gallery-slide img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:none;
+}
+
+/* Prev / Next — kid-style chunky pink circles */
+
+.gallery-nav {
+  position:absolute;
+  top:calc(50% - 19px);
+  z-index:5;
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 0 2px;
+  border:2px solid rgba(255,255,255,0.95);
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff8fc0,#f472b6 40%,#d83f87);
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-size:21px;
+  font-weight:900;
+  line-height:1;
+  cursor:pointer;
+  pointer-events:auto;
+  box-shadow:0 4px 0 #b12e6c, 0 8px 18px rgba(190,62,126,0.35);
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gallery-prev { left:10px; }
+.gallery-next { right:10px; }
+
+.gallery-nav:hover {
+  transform:translateY(-2px);
+  box-shadow:0 6px 0 #b12e6c, 0 12px 22px rgba(190,62,126,0.42);
+}
+
+.gallery-nav:active {
+  transform:translateY(2px);
+  box-shadow:0 2px 0 #b12e6c, 0 4px 10px rgba(190,62,126,0.32);
+}
+
+.gallery-nav:focus-visible {
+  outline:2px solid #a72d68;
+  outline-offset:3px;
+}
+
+/* Dots */
+
+.gallery-dots {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  flex-wrap:wrap;
+}
+
+.gallery-dot {
+  width:26px;
+  height:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+}
+
+.gallery-dot::before {
+  content:"";
+  display:block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:rgba(216,63,135,0.35);
+  box-shadow:0 1px 2px rgba(255,255,255,0.9);
+  transition:
+    width 0.28s ease,
+    border-radius 0.28s ease,
+    background 0.28s ease;
+}
+
+.gallery-dot.is-active::before {
+  width:22px;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ff8fc0,#d83f87);
+}
+
+.gallery-dot:focus-visible {
+  outline:2px solid #a72d68;
+  outline-offset:1px;
+  border-radius:50%;
+}
+
+/* ==========================================
+   SIXTH SECTION — RSVP
+   Heading lives ABOVE the card.
+   The card artwork holds ONLY the form fields.
+========================================== */
+
+.rsvp-section {
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:clamp(16px,4vw,28px) 0;
+  background:#fbe6f4;
+  text-align:center;
+  perspective:1400px;
+  perspective-origin:50% 45%;
+}
+
+.rsvp-bg {
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  background-image:url("Assets/rsvpbg.png");
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  transform-origin:center center;
+  transform:var(
+    --rsvp-bg-transform,
+    translate3d(0,0,-60px) scale(1.16)
+  );
+  will-change:transform;
+  pointer-events:none;
+}
+
+.rsvp-inner {
+  position:relative;
+  z-index:2;
+  width:100%;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(6px,2vw,12px);
+}
+
+/* Heading — top of the section, above the card */
+
+.rsvp-heading {
+  width:min(100%,440px);
+  padding:0 18px;
+  transform-origin:center top;
+  transform:var(
+    --rsvp-copy-transform,
+    translate3d(0,0,50px)
+  );
+  will-change:transform;
+}
+
+.rsvp-kicker {
+  margin-bottom:4px;
+  color:#b8337a;
+  font-size:clamp(9px,2.6vw,12px);
+  font-weight:900;
+  letter-spacing:2.2px;
+  line-height:1.2;
+  text-shadow:0 1px 5px rgba(255,255,255,0.95);
+}
+
+.rsvp-title {
+  color:#cf3f88;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,7.4vw,36px);
+  font-weight:700;
+  line-height:1.05;
+  text-shadow:0 2px 8px rgba(255,255,255,0.95);
+}
+
+.rsvp-description {
+  margin-top:4px;
+  color:#a2557f;
+  font-size:clamp(10px,2.9vw,13px);
+  font-weight:800;
+  line-height:1.4;
+  text-shadow:0 1px 5px rgba(255,255,255,0.95);
+}
+
+/* 9:16 RSVP artwork container (also the query container) */
+
+.rsvp-stage {
+  position:relative;
+  width:min(100%,480px);
+  max-width:min(480px, calc((100svh - 190px) * 9 / 16));
+  aspect-ratio:9 / 16;
+  margin:0 auto;
+  margin-top: -35px;
+  container-type:inline-size;
+  transform-origin:50% 60%;
+  transform:var(
+    --rsvp-art-transform,
+    translate3d(0,0,30px) scale(1)
+  );
+  will-change:transform;
+}
+
+/* Transparent RSVP card image */
+
+.rsvp-card-art {
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+}
+
+/* Only the form lives inside the card.
+   Every size below scales with the card width (cqw),
+   so the fields can never spill outside the artwork. */
+
+.rsvp-form {
+  position:absolute;
+  z-index:2;
+  top:46%;
+  left:19%;
+  width:62%;
+  bottom:13.5%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:6px;
+  gap:clamp(6px,2.1cqw,11px);
+  text-align:left;
+}
+
+.rsvp-field {
+  width:100%;
+  min-width:0;
+  flex:0 0 auto;
+}
+
+.rsvp-field label {
+  display:block;
+  margin:0 0 2px 3px;
+  margin:0 0 clamp(2px,0.7cqw,4px) clamp(2px,0.8cqw,4px);
+  color:#99446f;
+  font-size:9px;
+  font-size:clamp(8px,2.35cqw,11.5px);
+  font-weight:900;
+  letter-spacing:0.3px;
+  line-height:1.15;
+}
+
+.rsvp-field input,
+.rsvp-field select {
+  display:block;
+  width:100%;
+  height:30px;
+  height:clamp(27px,8.2cqw,40px);
+  padding:0 8px;
+  padding:0 clamp(6px,2cqw,11px);
+  border:1.5px solid rgba(226,91,151,0.7);
+  border-radius:8px;
+  border-radius:clamp(7px,2.2cqw,11px);
+  outline:none;
+  background:rgba(255,255,255,0.92);
+  color:#854163;
+  font-family:'Nunito',sans-serif;
+  font-size:11px;
+  font-size:clamp(10px,2.7cqw,13px);
+  font-weight:800;
+  box-shadow:inset 0 1px 3px rgba(210,91,145,0.08);
+}
+
+.rsvp-field select {
+  cursor:pointer;
+}
+
+.rsvp-field input::placeholder {
+  color:#c18aa6;
+  font-weight:600;
+}
+
+.rsvp-field input:focus,
+.rsvp-field select:focus {
+  border-color:#db478c;
+  box-shadow:0 0 0 2px rgba(232,93,158,0.14);
+}
+
+/* Send RSVP button — kid-style chunky pink (scaled to card) */
+
+.rsvp-submit {
+  width:100%;
+  min-height:33px;
+  min-height:clamp(32px,8.8cqw,44px);
+  margin-top:clamp(3px,1.2cqw,7px);
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ff8fc0,#f472b6 40%,#d83f87);
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-size:10px;
+  font-size:clamp(9px,2.5cqw,12px);
+  font-weight:900;
+  letter-spacing:0.9px;
+  box-shadow:0 3px 0 #b12e6c, 0 5px 12px rgba(190,62,126,0.3);
+  cursor:pointer;
+  flex:0 0 auto;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rsvp-submit:active {
+  transform:translateY(2px);
+  box-shadow:0 1px 0 #b12e6c, 0 3px 8px rgba(190,62,126,0.3);
+}
+
+.rsvp-submit:focus-visible {
+  outline:2px solid #a72d68;
+  outline-offset:3px;
+}
+
+/* FOOTER */
+
+.footer {
+  padding:25px 15px;
+  text-align:center;
+  background:#fff0f7;
+  color:#bc6995;
+  font-size:12px;
+  font-weight:800;
+}
+
+.footer-heart {
+  color:#ed65a6;
+  font-size:17px;
+}
+
+/* MUSIC TOGGLE BUTTON — kid-style pink bubble */
+
+.music-toggle {
+  position:fixed;
+  bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  right:calc(20px + env(safe-area-inset-right,0px));
+  z-index:300;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.95);
+  background:linear-gradient(135deg,#ff8fc0,#f472b6 40%,#d83f87);
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-size:20px;
+  font-weight:900;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 0 #b12e6c, 0 8px 22px rgba(190,62,126,0.4);
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+  line-height:1;
+}
+
+.music-toggle:hover {
+  transform:translateY(-2px);
+  box-shadow:0 6px 0 #b12e6c, 0 12px 26px rgba(190,62,126,0.45);
+}
+
+.music-toggle:active {
+  transform:translateY(2px);
+  box-shadow:0 2px 0 #b12e6c, 0 4px 12px rgba(190,62,126,0.35);
+}
+
+.music-toggle:focus-visible {
+  outline:2px solid #a72d68;
+  outline-offset:3px;
+}
+
+.music-toggle .music-icon-pause {
+  display:none;
+  letter-spacing:1px;
+  font-size:15px;
+}
+
+.music-toggle.playing .music-icon-play {
+  display:none;
+}
+
+.music-toggle.playing .music-icon-pause {
+  display:inline;
+}
+
+.music-toggle.playing {
+  animation:musicPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes musicPulse {
+  0%,100% {
+    box-shadow:0 4px 0 #b12e6c, 0 8px 22px rgba(190,62,126,0.4);
+  }
+  50% {
+    box-shadow:0 4px 0 #b12e6c, 0 8px 32px rgba(190,62,126,0.75);
+  }
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width:480px) {
+
+  .hero {
+    min-height:100svh;
+    perspective:900px;
+  }
+
+  .hero-content {
+    top:18%;
+  }
+
+  .details-section {
+    perspective:950px;
+  }
+
+  .venue-copy {
+    top:4.5%;
+    padding:0 8px;
+  }
+
+  .venue-date-row {
+    gap:9px;
+  }
+
+  .venue-day {
+    padding:0 10px;
+  }
+
+  .venue-label {
+    margin-top:17px;
+  }
+
+  .venue-name,
+  .venue-address {
+    max-width:300px;
+  }
+
+  .gift-registry-section {
+    min-height:max(100svh,820px);
+  }
+
+  .gift-registry-title {
+    font-size:clamp(22px,6vw,30px);
+  }
+
+  .gift-registry-message {
+    font-size:clamp(10px,2.7vw,12px);
+  }
+
+  .countdown-section {
+    min-height:max(100svh,820px);
+  }
+
+  .countdown-title {
+    font-size:clamp(14px,4.1vw,19px);
+  }
+
+  .time-number {
+    font-size:clamp(18px,5.5vw,25px);
+  }
+
+  .countdown-note {
+    font-size:10px;
+  }
+
+  .gallery-section {
+    min-height:max(100svh,820px);
+  }
+
+  .gallery-inner {
+    padding:0 12px;
+  }
+
+  .gallery-nav {
+    width:34px;
+    height:34px;
+    font-size:19px;
+    top:calc(50% - 17px);
+  }
+
+  .gallery-prev { left:6px; }
+  .gallery-next { right:6px; }
+
+  .gallery-viewport {
+    border-width:5px;
+    border-radius:20px;
+  }
+
+  .rsvp-section {
+    min-height:100svh;
+    padding:clamp(14px,4vw,24px) 0;
+  }
+
+  .music-toggle {
+    width:48px;
+    height:48px;
+    font-size:18px;
+  }
+}
+
+/* DESKTOP */
+
+@media (min-width:601px) {
+  .website {
+    border-left:1px solid #f8d8e8;
+    border-right:1px solid #f8d8e8;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior:auto !important;
+    animation-duration:0.01ms !important;
+    transition-duration:0.01ms !important;
+  }
+}
+
+/* REMOVE BLUE TAP HIGHLIGHT FROM THE ENTIRE WEBSITE */
+
+*,
+*::before,
+*::after {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default browser focus outlines on mouse/touch clicks */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+/* Remove default blue focus ring */
+button,
+a,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Keep keyboard navigation accessible */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #e74997;
+    outline-offset: 2px;
+}
+
+/* GALLERY NAVIGATION — CLICK FIX */
+.gallery-carousel {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+}
+
+.gallery-viewport {
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-nav {
+    position: absolute;
+    z-index: 30 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.gallery-prev {
+    left: 10px;
+}
+
+.gallery-next {
+    right: 10px;
+}
+
+.gallery-nav:disabled {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (max-width: 480px) {
+    .gallery-prev {
+        left: 6px;
+    }
+
+    .gallery-next {
+        right: 6px;
+    }
+}
+</style>
+</head>
+
+<body class="intro-locked">
+
+<!-- BACKGROUND MUSIC -->
+
+<audio
+  id="backgroundMusic"
+  src="Assets/music.mp3"
+  loop
+  preload="auto"
+></audio>
+
+<!-- INTRO VIDEO -->
+
+<div class="intro-screen" id="introScreen">
+
+  <video
+    class="intro-video"
+    id="introVideo"
+    playsinline
+    webkit-playsinline
+    preload="auto"
+  >
+    <source src="Assets/introvd.mp4" type="video/mp4">
+  </video>
+
+  <div class="intro-overlay" id="introOverlay">
+
+    <button
+      type="button"
+      class="tap-button"
+      id="tapButton"
+    >
+      <span class="tap-icon">♡</span>
+      TAP TO OPEN
+    </button>
+
+  </div>
+
+</div>
+
+<!-- MAIN WEBSITE -->
+
+<main class="website" id="website">
+
+  <!-- HERO SECTION -->
+
+  <section class="hero" id="hero">
+
+    <img
+      src="Assets/herokitty.png"
+      class="hero-art"
+      id="heroArt"
+      alt="Hello Kitty, Kuromi and birthday cake"
+    >
+
+    <div class="hero-content">
+
+      <p class="hero-small-title">
+        You're Invited To Celebrate
+      </p>
+
+      <h1 class="girl-name" data-girl-name>
+        Aaradhya
+      </h1>
+
+      <p class="hero-subtitle">
+        1st Birthday Celebration
+      </p>
+
+      <div class="hero-age">
+        ONE YEAR OF PURE MAGIC
+      </div>
+
+    </div>
+
+    <div class="scroll-hint">
+      SCROLL TO EXPLORE
+      <span class="scroll-arrow">↓</span>
+    </div>
+
+  </section>
+
+  <!-- SECOND SECTION — DETAILS & VENUE -->
+
+  <section class="details-section" id="details">
+
+    <div class="venue-bg" id="venueBg" aria-hidden="true"></div>
+
+    <img
+      src="Assets/kittycar.png"
+      class="venue-art"
+      id="venueArt"
+      alt="Hello Kitty and Kuromi birthday car"
+    >
+
+    <div class="venue-copy">
+
+      <p class="venue-month" id="eventMonth">
+        NOVEMBER
+      </p>
+
+      <div class="venue-date-row">
+
+        <span
+          class="venue-weekday"
+          id="eventWeekday"
+        >
+          SATURDAY
+        </span>
+
+        <span
+          class="venue-day"
+          id="eventDay"
+        >
+          20
+        </span>
+
+        <span
+          class="venue-time"
+          id="eventTime"
+        >
+          AT 3:00 PM
+        </span>
+
+      </div>
+
+      <p class="venue-label">
+        LOCATION
+      </p>
+
+      <p
+        class="venue-name"
+        id="eventVenue"
+      >
+        ADD VENUE NAME
+      </p>
+
+      <p
+        class="venue-address"
+        id="eventAddress"
+      >
+        ADD FULL ADDRESS
+      </p>
+
+      <a
+        href="https://maps.google.com/"
+        target="_blank"
+        rel="noopener"
+        class="map-button"
+        id="mapButton"
+      >
+        📍 GOOGLE MAPS
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- THIRD SECTION — COUNTDOWN -->
+
+  <section class="countdown-section" id="countdown">
+
+    <div class="countdown-bg" aria-hidden="true"></div>
+
+    <div class="countdown-layout">
+
+      <div class="countdown-stage">
+
+        <img
+          src="Assets/countdown.png"
+          class="countdown-card-art"
+          alt="Hello Kitty and Kuromi birthday countdown card"
+        >
+
+        <div class="countdown-heading">
+
+          <p class="countdown-kicker">
+            THE COUNTDOWN IS ON
+          </p>
+
+          <h2 class="countdown-title">
+            Aaradhya's Birthday Countdown
+          </h2>
+
+        </div>
+
+        <div
+          class="countdown-grid"
+          aria-label="Time remaining until the birthday celebration"
+        >
+
+          <div class="countdown-cell">
+            <span class="time-number" id="days">00</span>
+            <span class="time-label">DAYS</span>
+          </div>
+
+          <div class="countdown-cell">
+            <span class="time-number" id="hours">00</span>
+            <span class="time-label">HOURS</span>
+          </div>
+
+          <div class="countdown-cell">
+            <span class="time-number" id="minutes">00</span>
+            <span class="time-label">MINUTES</span>
+          </div>
+
+          <div class="countdown-cell">
+            <span class="time-number" id="seconds">00</span>
+            <span class="time-label">SECONDS</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <p class="countdown-note" id="countdownNote">
+        Counting down to our special celebration 💕
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- FOURTH SECTION — GIFT REGISTRY -->
+
+  <section class="gift-registry-section" id="giftRegistry">
+
+    <div class="gift-registry-bg" aria-hidden="true"></div>
+
+    <div class="gift-registry-stage">
+
+      <img
+        src="Assets/giftimg.png"
+        class="gift-registry-art"
+        alt="Hello Kitty and Kuromi sitting on a pink birthday gift"
+      >
+
+      <div class="gift-registry-copy">
+
+        <p class="gift-registry-kicker">
+          A LITTLE GESTURE OF LOVE
+        </p>
+
+        <h2 class="gift-registry-title">
+          Gift Registry
+        </h2>
+
+        <p class="gift-registry-message">
+          Your love, blessings and presence are the sweetest gifts
+          for our little princess. Thank you for making her day special!
+        </p>
+
+        <button
+          type="button"
+          class="gift-button"
+          id="giftButton"
+        >
+          <span aria-hidden="true">🎁</span> VIEW GIFT REGISTRY
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FIFTH SECTION — GALLERY CAROUSEL -->
+
+  <section class="gallery-section" id="gallery">
+
+    <div class="gallery-bg" aria-hidden="true"></div>
+
+    <div class="gallery-inner">
+
+      <header class="gallery-heading">
+
+        <p class="gallery-kicker">
+          SWEET LITTLE MOMENTS
+        </p>
+
+        <h2 class="gallery-title">
+          Our Gallery
+        </h2>
+
+        <p class="gallery-description">
+          A few of our favourite memories with our little princess
+        </p>
+
+      </header>
+
+      <div class="gallery-stage">
+
+        <div
+          class="gallery-carousel"
+          id="galleryCarousel"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Photo gallery"
+          tabindex="0"
+        >
+
+          <div class="gallery-viewport" id="galleryViewport">
+
+            <div class="gallery-track" id="galleryTrack">
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery1.png"
+                  alt="Birthday memory one"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery2.png"
+                  alt="Birthday memory two"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery3.png"
+                  alt="Birthday memory three"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery4.png"
+                  alt="Birthday memory four"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery5.png"
+                  alt="Birthday memory five"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery6.png"
+                  alt="Birthday memory six"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery7.png"
+                  alt="Birthday memory seven"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery8.png"
+                  alt="Birthday memory eight"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery9.png"
+                  alt="Birthday memory nine"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery10.png"
+                  alt="Birthday memory ten"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery11.png"
+                  alt="Birthday memory eleven"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+              <figure class="gallery-slide">
+                <img
+                  src="Assets/gallery12.png"
+                  alt="Birthday memory twelve"
+                  loading="lazy"
+                  draggable="false"
+                >
+              </figure>
+
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="gallery-nav gallery-prev"
+            id="galleryPrev"
+            aria-label="Previous photo"
+          >
+            ‹
+          </button>
+
+          <button
+            type="button"
+            class="gallery-nav gallery-next"
+            id="galleryNext"
+            aria-label="Next photo"
+          >
+            ›
+          </button>
+
+        </div>
+
+        <div
+          class="gallery-dots"
+          id="galleryDots"
+          aria-label="Choose a photo"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SIXTH SECTION — RSVP -->
+
+  <section class="rsvp-section" id="rsvp">
+
+    <div class="rsvp-bg" aria-hidden="true"></div>
+
+    <div class="rsvp-inner">
+
+      <!-- HEADING — sits at the TOP, above the card -->
+
+      <header class="rsvp-heading">
+
+        <p class="rsvp-kicker">
+          WE CAN'T WAIT TO CELEBRATE
+        </p>
+
+        <h2 class="rsvp-title">
+          Kindly RSVP
+        </h2>
+
+        <p class="rsvp-description">
+          Please let us know if you can join us!
+        </p>
+
+      </header>
+
+      <!-- CARD — contains ONLY the form fields -->
+
+      <div class="rsvp-stage">
+
+        <img
+          src="Assets/rsvpcard.png"
+          class="rsvp-card-art"
+          alt="Hello Kitty and Kuromi RSVP invitation card"
+        >
+
+        <form class="rsvp-form" id="rsvpForm">
+
+          <!-- Guest name -->
+
+          <div class="rsvp-field">
+
+            <label for="rsvpGuestName">
+              Your Name
+            </label>
+
+            <input
+              type="text"
+              id="rsvpGuestName"
+              name="guestName"
+              placeholder="Enter your name"
+              autocomplete="name"
+              maxlength="70"
+              required
+            >
+
+          </div>
+
+          <!-- Attendance -->
+
+          <div class="rsvp-field">
+
+            <label for="rsvpAttendance">
+              Will You Attend?
+            </label>
+
+            <select
+              id="rsvpAttendance"
+              name="attendance"
+              required
+            >
+
+              <option value="" selected disabled>
+                Select your response
+              </option>
+
+              <option value="Yes, I will attend">
+                Yes, I'll be there!
+              </option>
+
+              <option value="Sorry, I cannot attend">
+                Sorry, can't make it
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- Number of guests -->
+
+          <div class="rsvp-field" id="guestCountField">
+
+            <label for="rsvpGuests">
+              Number of Guests
+            </label>
+
+            <input
+              type="number"
+              id="rsvpGuests"
+              name="guests"
+              min="1"
+              max="20"
+              value="1"
+              inputmode="numeric"
+              required
+            >
+
+          </div>
+
+          <!-- Submit -->
+
+          <button
+            type="submit"
+            class="rsvp-submit"
+          >
+            SEND RSVP ♡
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    Made With Love For Our Little Princess
+
+    <div class="footer-heart">
+      ♥
+    </div>
+
+  </footer>
+
+</main>
+
+<!-- MUSIC TOGGLE BUTTON -->
+
+<button
+  type="button"
+  class="music-toggle"
+  id="musicToggle"
+  aria-label="Play background music"
+>
+  <span class="music-icon music-icon-play" aria-hidden="true">♫</span>
+  <span class="music-icon music-icon-pause" aria-hidden="true">❚❚</span>
+</button>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* =====================================
+   BIRTHDAY DETAILS
+===================================== */
+
+const BIRTHDAY = {
+
+    girlName: "Aaradhya",
+
+    month: "NOVEMBER",
+
+    weekday: "SATURDAY",
+
+    day: "20",
+
+    time: "AT 3:00 PM",
+
+    venue: "ADD VENUE NAME",
+
+    address: "ADD FULL ADDRESS",
+
+    // Birthday date & time used by the live countdown.
+    // Format: YYYY-MM-DDTHH:mm:ss+05:30 (IST offset)
+    // Update the year/time to match your actual event.
+
+    dateISO: "2026-11-20T15:00:00+05:30",
+
+    mapLink: "https://maps.google.com/",
+
+    // Gift registry / wishlist link
+    // Example: "https://www.amazon.in/baby-reg/..."
+
+    giftLink: "",
+
+    // WhatsApp number with country code
+    // Example: 919876543210
+
+    whatsapp: "91XXXXXXXXXX"
+
+};
+
+
+/* =====================================
+   UPDATE BIRTHDAY DETAILS
+===================================== */
+
+document.title =
+    BIRTHDAY.girlName + "'s 1st Birthday Invitation";
+
+
+document.querySelectorAll("[data-girl-name]")
+    .forEach(element => {
+
+        element.textContent = BIRTHDAY.girlName;
+
+    });
+
+
+document.getElementById("eventMonth").textContent =
+    BIRTHDAY.month;
+
+
+document.getElementById("eventWeekday").textContent =
+    BIRTHDAY.weekday;
+
+
+document.getElementById("eventDay").textContent =
+    BIRTHDAY.day;
+
+
+document.getElementById("eventTime").textContent =
+    BIRTHDAY.time;
+
+
+document.getElementById("eventVenue").textContent =
+    BIRTHDAY.venue;
+
+
+document.getElementById("eventAddress").textContent =
+    BIRTHDAY.address;
+
+
+document.getElementById("mapButton").href =
+    BIRTHDAY.mapLink;
+
+
+/* =====================================
+   BACKGROUND MUSIC
+===================================== */
+
+const backgroundMusic =
+    document.getElementById("backgroundMusic");
+
+const musicToggle =
+    document.getElementById("musicToggle");
+
+const MUSIC_VOLUME = 0.5;
+
+
+/* Keep the button in sync with the actual audio state */
+
+function setMusicToggleState(isPlaying) {
+
+    if (isPlaying) {
+
+        musicToggle.classList.add("playing");
+
+        musicToggle.setAttribute(
+            "aria-label",
+            "Pause background music"
+        );
+
+        musicToggle.setAttribute("aria-pressed", "true");
+
+    } else {
+
+        musicToggle.classList.remove("playing");
+
+        musicToggle.setAttribute(
+            "aria-label",
+            "Play background music"
+        );
+
+        musicToggle.setAttribute("aria-pressed", "false");
+
+    }
+
+}
+
+
+/* Toggle music on button tap */
+
+musicToggle.addEventListener("click", function() {
+
+    if (!backgroundMusic) {
+        return;
+    }
+
+    if (backgroundMusic.paused) {
+
+        backgroundMusic.play()
+
+            .then(() => setMusicToggleState(true))
+
+            .catch(error => {
+
+                console.warn(
+                    "Music playback failed:",
+                    error
+                );
+
+            });
+
+    } else {
+
+        backgroundMusic.pause();
+
+        setMusicToggleState(false);
+
+    }
+
+});
+
+
+/* Keep button state in sync if audio is controlled elsewhere */
+
+backgroundMusic.addEventListener("play", function() {
+
+    setMusicToggleState(true);
+
+});
+
+
+backgroundMusic.addEventListener("pause", function() {
+
+    setMusicToggleState(false);
+
+});
+
+
+/* Mute initially — will be unmuted after the intro */
+
+backgroundMusic.muted = true;
+
+backgroundMusic.volume = MUSIC_VOLUME;
+
+
+/* =====================================
+   INTRO VIDEO
+===================================== */
+
+const introScreen =
+    document.getElementById("introScreen");
+
+const introVideo =
+    document.getElementById("introVideo");
+
+const introOverlay =
+    document.getElementById("introOverlay");
+
+const tapButton =
+    document.getElementById("tapButton");
+
+
+let videoStarted = false;
+
+let introFinished = false;
+
+
+/* Start video after screen tap */
+
+function startIntroVideo() {
+
+    if (videoStarted || introFinished) {
+        return;
+    }
+
+    videoStarted = true;
+
+
+    /* Start music silently during user gesture so the
+       browser's autoplay policy will allow it to continue.
+       It will be unmuted after the intro finishes. */
+
+    if (backgroundMusic) {
+
+        backgroundMusic.muted = true;
+
+        backgroundMusic.volume = MUSIC_VOLUME;
+
+        backgroundMusic.play()
+
+            .catch(error => {
+
+                console.warn(
+                    "Music pre-init failed:",
+                    error
+                );
+
+            });
+
+    }
+
+
+    introVideo.play()
+
+        .then(() => {
+
+            introOverlay.classList.add("started");
+
+        })
+
+        .catch(error => {
+
+            videoStarted = false;
+
+            introOverlay.classList.remove("started");
+
+            console.error(
+                "Intro video playback failed:",
+                error
+            );
+
+        });
+
+}
+
+
+/* Tap anywhere to open */
+
+introScreen.addEventListener("click", function() {
+
+    startIntroVideo();
+
+});
+
+
+/* When video starts */
+
+introVideo.addEventListener("play", function() {
+
+    introOverlay.classList.add("started");
+
+});
+
+
+/* Automatically transition after video ends */
+
+introVideo.addEventListener("ended", function() {
+
+    finishIntro();
+
+});
+
+
+/* Smooth transition to hero section */
+
+function finishIntro() {
+
+    if (introFinished) {
+        return;
+    }
+
+    introFinished = true;
+
+
+    /* Unmute the music now that the hero section is visible */
+
+    if (backgroundMusic) {
+
+        backgroundMusic.muted = false;
+
+        backgroundMusic.volume = MUSIC_VOLUME;
+
+        if (backgroundMusic.paused) {
+
+            backgroundMusic.play()
+
+                .then(() => setMusicToggleState(true))
+
+                .catch(error => {
+
+                    console.warn(
+                        "Music autoplay on finish blocked:",
+                        error
+                    );
+
+                });
+
+        } else {
+
+            setMusicToggleState(true);
+
+        }
+
+    }
+
+
+    /* Trigger the hero rise-in — this class powers all of the
+       hero entrance animations in the CSS (background fade,
+       artwork rise, copy reveal, scroll hint). */
+
+    document.body.classList.add("intro-complete");
+
+
+    introScreen.classList.add("is-hidden");
+
+    introVideo.pause();
+
+    document.body.classList.remove("intro-locked");
+
+    setTimeout(() => {
+
+        introScreen.style.display = "none";
+
+    }, 1250);
+
+}
+
+
+/* =====================================
+   3D SCROLL PARALLAX — SMOOTH DAMPED MOTION
+   (Hero · Venue · Countdown · Gift · Gallery · RSVP)
+
+   NOTE: Countdown bg, Gift bg and Gallery bg are STATIC.
+===================================== */
+
+const prefersReducedMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+const heroSection =
+    document.getElementById("hero");
+
+const detailsSection =
+    document.getElementById("details");
+
+const countdownSection =
+    document.getElementById("countdown");
+
+const giftSection =
+    document.getElementById("giftRegistry");
+
+const gallerySection =
+    document.getElementById("gallery");
+
+const rsvpSection =
+    document.getElementById("rsvp");
+
+
+const clamp = (value, min, max) =>
+    Math.min(Math.max(value, min), max);
+
+
+/* -------------------------------------
+   APPLY: HERO
+------------------------------------- */
+
+function applyHero(p) {
+
+    if (!heroSection) {
+        return;
+    }
+
+    const bgShift = -p * 46;
+
+    const artShift = p * 48;
+
+    const copyShift = -p * 24;
+
+
+    heroSection.style.setProperty(
+
+        "--hero-bg-transform",
+
+        `translate3d(0, ${bgShift.toFixed(2)}px, -60px) ` +
+
+        `scale(${(1.12 + p * 0.05).toFixed(3)}) ` +
+
+        `rotateX(${(p * 1.4).toFixed(2)}deg)`
+
+    );
+
+
+    heroSection.style.setProperty(
+
+        "--hero-art-transform",
+
+        `translate3d(0, ${artShift.toFixed(2)}px, 50px) ` +
+
+        `scale(${(1 + p * 0.06).toFixed(3)}) ` +
+
+        `rotateX(${(p * -1.2).toFixed(2)}deg)`
+
+    );
+
+
+    heroSection.style.setProperty(
+
+        "--hero-copy-transform",
+
+        `translate3d(0, ${copyShift.toFixed(2)}px, 30px) ` +
+
+        `rotateX(${(p * -1.3).toFixed(2)}deg)`
+
+    );
+
+}
+
+
+/* -------------------------------------
+   APPLY: VENUE
+------------------------------------- */
+
+const VENUE_SCALE_START = 0.62;
+
+const VENUE_SCALE_RANGE = 0.9;
+
+
+function applyVenue(p) {
+
+    if (!detailsSection) {
+        return;
+    }
+
+    const carScale = VENUE_SCALE_START + p * VENUE_SCALE_RANGE;
+
+    const carShift = 8 - p * 18;
+
+    const bgShift = -p * 52;
+
+    const copyShift = -p * 14;
+
+
+    detailsSection.style.setProperty(
+
+        "--venue-bg-transform",
+
+        `translate3d(0, ${bgShift.toFixed(2)}px, -70px) ` +
+
+        `scale(${(1.14 + p * 0.07).toFixed(3)}) ` +
+
+        `rotateX(${(p * 1.2).toFixed(2)}deg)`
+
+    );
+
+
+    detailsSection.style.setProperty(
+
+        "--venue-art-transform",
+
+        `translate3d(0, ${carShift.toFixed(2)}px, 100px) ` +
+
+        `scale(${carScale.toFixed(3)}) ` +
+
+        `rotateX(${(p * -1.4).toFixed(2)}deg)`
+
+    );
+
+
+    detailsSection.style.setProperty(
+
+        "--venue-copy-transform",
+
+        `translate3d(0, ${copyShift.toFixed(2)}px, 30px) ` +
+
+        `rotateX(${(p * -0.9).toFixed(2)}deg)`
+
+    );
+
+}
+
+
+/* -------------------------------------
+   APPLY: COUNTDOWN
+   (background stays static — only card + note move)
+------------------------------------- */
+
+function applyCountdown(p) {
+
+    if (!countdownSection) {
+        return;
+    }
+
+    countdownSection.style.setProperty(
+
+        "--countdown-art-transform",
+
+        `translate3d(0, ${(24 - p * 40).toFixed(2)}px, 30px) ` +
+
+        `scale(${(0.96 + p * 0.04).toFixed(3)}) ` +
+
+        `rotateX(${(p * -1.2).toFixed(2)}deg)`
+
+    );
+
+
+    countdownSection.style.setProperty(
+
+        "--countdown-copy-transform",
+
+        `translate3d(0, ${(-p * 18).toFixed(2)}px, 50px)`
+
+    );
+
+}
+
+
+/* -------------------------------------
+   APPLY: GIFT REGISTRY
+   (background stays static — only card moves)
+------------------------------------- */
+
+function applyGift(p) {
+
+    if (!giftSection) {
+        return;
+    }
+
+    giftSection.style.setProperty(
+
+        "--gift-art-transform",
+
+        `translate3d(0, ${(24 - p * 40).toFixed(2)}px, 30px) ` +
+
+        `scale(${(0.96 + p * 0.04).toFixed(3)})`
+
+    );
+
+}
+
+
+/* -------------------------------------
+   APPLY: GALLERY
+   (background stays static — only the
+   carousel stage + heading move)
+------------------------------------- */
+
+function applyGallery(p) {
+
+    if (!gallerySection) {
+        return;
+    }
+
+    gallerySection.style.setProperty(
+
+        "--gallery-art-transform",
+
+        `translate3d(0, ${(24 - p * 40).toFixed(2)}px, 30px) ` +
+
+        `scale(${(0.96 + p * 0.04).toFixed(3)})`
+
+    );
+
+
+    gallerySection.style.setProperty(
+
+        "--gallery-copy-transform",
+
+        `translate3d(0, ${(-p * 20).toFixed(2)}px, 50px)`
+
+    );
+
+}
+
+
+/* -------------------------------------
+   APPLY: RSVP
+------------------------------------- */
+
+function applyRsvp(p) {
+
+    if (!rsvpSection) {
+        return;
+    }
+
+    rsvpSection.style.setProperty(
+
+        "--rsvp-bg-transform",
+
+        `translate3d(0, ${(-p * 50).toFixed(2)}px, -60px) ` +
+
+        `scale(${(1.16 + p * 0.06).toFixed(3)}) ` +
+
+        `rotateX(${(p * 1.1).toFixed(2)}deg)`
+
+    );
+
+
+    rsvpSection.style.setProperty(
+
+        "--rsvp-art-transform",
+
+        `translate3d(0, ${(24 - p * 40).toFixed(2)}px, 30px) ` +
+
+        `scale(${(0.96 + p * 0.04).toFixed(3)})`
+
+    );
+
+
+    rsvpSection.style.setProperty(
+
+        "--rsvp-copy-transform",
+
+        `translate3d(0, ${(-p * 20).toFixed(2)}px, 50px)`
+
+    );
+
+}
+
+
+/* -------------------------------------
+   PROGRESS READERS
+------------------------------------- */
+
+/* Hero progress: 0 → 1 while the hero scrolls out of view */
+
+function readHeroProgress(element) {
+
+    const rect = element.getBoundingClientRect();
+
+    return clamp(-rect.top / Math.max(rect.height, 1), 0, 1);
+
+}
+
+
+/* Enter progress: 0 → 1 while the section travels through
+   the viewport (used by venue + all the lower sections) */
+
+function readEnterProgress(element) {
+
+    const viewportHeight = window.innerHeight;
+
+    const rect = element.getBoundingClientRect();
+
+    return clamp(
+
+        (viewportHeight - rect.top) /
+
+        Math.max(viewportHeight + rect.height, 1),
+
+        0,
+
+        1
+
+    );
+
+}
+
+
+/* -------------------------------------
+   PARALLAX STATE REGISTRY
+------------------------------------- */
+
+const parallaxStates = [];
+
+
+function registerParallax(section, ease, read, apply) {
+
+    if (!section) {
+        return;
+    }
+
+    parallaxStates.push({
+
+        section,
+
+        ease,
+
+        read,
+
+        apply,
+
+        target: 0,
+
+        smooth: 0
+
+    });
+
+}
+
+
+registerParallax(heroSection, 0.085, readHeroProgress, applyHero);
+
+registerParallax(detailsSection, 0.065, readEnterProgress, applyVenue);
+
+registerParallax(countdownSection, 0.075, readEnterProgress, applyCountdown);
+
+registerParallax(giftSection, 0.075, readEnterProgress, applyGift);
+
+registerParallax(gallerySection, 0.075, readEnterProgress, applyGallery);
+
+registerParallax(rsvpSection, 0.075, readEnterProgress, applyRsvp);
+
+
+/* -------------------------------------
+   READ SCROLL → TARGETS
+------------------------------------- */
+
+function readScrollTargets() {
+
+    for (const state of parallaxStates) {
+
+        state.target = state.read(state.section);
+
+    }
+
+}
+
+
+/* -------------------------------------
+   ANIMATION LOOP
+------------------------------------- */
+
+let rafId = null;
+
+let lastFrameTime = 0;
+
+
+function tick(now) {
+
+    if (!lastFrameTime) {
+
+        lastFrameTime = now;
+
+    }
+
+    const dt = Math.min((now - lastFrameTime) / 16.667, 4);
+
+    lastFrameTime = now;
+
+
+    let stillMoving = false;
+
+
+    for (const state of parallaxStates) {
+
+        const factor = 1 - Math.pow(1 - state.ease, dt);
+
+        state.smooth += (state.target - state.smooth) * factor;
+
+
+        if (Math.abs(state.target - state.smooth) < 0.0002) {
+
+            state.smooth = state.target;
+
+        } else {
+
+            stillMoving = true;
+
+        }
+
+
+        state.apply(state.smooth);
+
+    }
+
+
+    if (stillMoving) {
+
+        rafId = requestAnimationFrame(tick);
+
+    } else {
+
+        rafId = null;
+
+        lastFrameTime = 0;
+
+    }
+
+}
+
+
+function startParallaxLoop() {
+
+    if (rafId === null) {
+
+        lastFrameTime = 0;
+
+        rafId = requestAnimationFrame(tick);
+
+    }
+
+}
+
+
+function onScrollOrResize() {
+
+    readScrollTargets();
+
+    startParallaxLoop();
+
+}
+
+
+/* -------------------------------------
+   BOOT
+------------------------------------- */
+
+function syncParallaxToCurrentScroll() {
+
+    readScrollTargets();
+
+    for (const state of parallaxStates) {
+
+        state.smooth = state.target;
+
+        state.apply(state.smooth);
+
+    }
+
+}
+
+
+/* Static transforms for users who prefer reduced motion */
+
+function applyStaticTransforms() {
+
+    const set = (element, vars) => {
+
+        if (!element) {
+            return;
+        }
+
+        Object.keys(vars).forEach(key => {
+
+            element.style.setProperty(key, vars[key]);
+
+        });
+
+    };
+
+
+    set(heroSection, {
+
+        "--hero-bg-transform":
+
+            "translate3d(0, 0, -60px) scale(1.12)",
+
+        "--hero-art-transform":
+
+            "translate3d(0, 0, 50px) scale(1)",
+
+        "--hero-copy-transform":
+
+            "translate3d(0, 0, 30px)"
+
+    });
+
+
+    set(detailsSection, {
+
+        "--venue-bg-transform":
+
+            "translate3d(0, 0, -70px) scale(1.14)",
+
+        "--venue-art-transform":
+
+            "translate3d(0, 0, 100px) scale(1.1)",
+
+        "--venue-copy-transform":
+
+            "translate3d(0, 0, 30px)"
+
+    });
+
+
+    set(countdownSection, {
+
+        "--countdown-art-transform":
+
+            "translate3d(0, 0, 30px) scale(1)",
+
+        "--countdown-copy-transform":
+
+            "translate3d(0, 0, 50px)"
+
+    });
+
+
+    set(giftSection, {
+
+        "--gift-art-transform":
+
+            "translate3d(0, 0, 30px) scale(1)"
+
+    });
+
+
+    set(gallerySection, {
+
+        "--gallery-art-transform":
+
+            "translate3d(0, 0, 30px) scale(1)",
+
+        "--gallery-copy-transform":
+
+            "translate3d(0, 0, 50px)"
+
+    });
+
+
+    set(rsvpSection, {
+
+        "--rsvp-bg-transform":
+
+            "translate3d(0, 0, -60px) scale(1.16)",
+
+        "--rsvp-art-transform":
+
+            "translate3d(0, 0, 30px) scale(1)",
+
+        "--rsvp-copy-transform":
+
+            "translate3d(0, 0, 50px)"
+
+    });
+
+}
+
+
+if (!prefersReducedMotion) {
+
+    window.addEventListener(
+
+        "scroll",
+
+        onScrollOrResize,
+
+        { passive: true }
+
+    );
+
+
+    window.addEventListener(
+
+        "resize",
+
+        onScrollOrResize
+
+    );
+
+
+    window.addEventListener(
+
+        "orientationchange",
+
+        onScrollOrResize
+
+    );
+
+
+    window.addEventListener(
+
+        "load",
+
+        function () {
+
+            syncParallaxToCurrentScroll();
+
+            startParallaxLoop();
+
+        }
+
+    );
+
+
+    syncParallaxToCurrentScroll();
+
+} else {
+
+    applyStaticTransforms();
+
+}
+
+
+/* =====================================
+   COUNTDOWN TIMER
+===================================== */
+
+const countdownNote =
+    document.getElementById("countdownNote");
+
+
+function updateCountdown() {
+
+    if (!BIRTHDAY.dateISO) {
+
+        countdownNote.textContent =
+
+            "Add your birthday date in the script to activate the countdown 💕";
+
+        return;
+
+    }
+
+
+    const targetDate =
+        new Date(BIRTHDAY.dateISO).getTime();
+
+
+    if (!Number.isFinite(targetDate)) {
+
+        countdownNote.textContent =
+
+            "Please check your birthday date configuration.";
+
+        return;
+
+    }
+
+
+    const now = new Date().getTime();
+
+    const difference = targetDate - now;
+
+
+    if (difference <= 0) {
+
+        document.getElementById("days").textContent = "00";
+
+        document.getElementById("hours").textContent = "00";
+
+        document.getElementById("minutes").textContent = "00";
+
+        document.getElementById("seconds").textContent = "00";
+
+
+        countdownNote.textContent =
+
+            "It's time to celebrate! Happy Birthday! 🎂";
+
+        return;
+
+    }
+
+
+    const days = Math.floor(
+
+        difference / (1000 * 60 * 60 * 24)
+
+    );
+
+
+    const hours = Math.floor(
+
+        (difference / (1000 * 60 * 60)) % 24
+
+    );
+
+
+    const minutes = Math.floor(
+
+        (difference / (1000 * 60)) % 60
+
+    );
+
+
+    const seconds = Math.floor(
+
+        (difference / 1000) % 60
+
+    );
+
+
+    document.getElementById("days").textContent =
+
+        String(days).padStart(2, "0");
+
+
+    document.getElementById("hours").textContent =
+
+        String(hours).padStart(2, "0");
+
+
+    document.getElementById("minutes").textContent =
+
+        String(minutes).padStart(2, "0");
+
+
+    document.getElementById("seconds").textContent =
+
+        String(seconds).padStart(2, "0");
+
+}
+
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+
+/* =====================================
+   GIFT REGISTRY BUTTON
+===================================== */
+
+const giftButton =
+    document.getElementById("giftButton");
+
+
+giftButton.addEventListener("click", function() {
+
+    const url = String(BIRTHDAY.giftLink || "").trim();
+
+    if (!url) {
+
+        alert(
+
+            "The gift registry link will be added soon 💕"
+
+        );
+
+        return;
+
+    }
+
+    window.open(url, "_blank", "noopener");
+
+});
+
+
+/* =====================================
+   GALLERY CAROUSEL — AUTO + MANUAL
+   (rewritten: works on tap, swipe,
+   keyboard and auto-advances)
+===================================== */
+
+(function initGalleryCarousel() {
+
+    const carouselEl =
+        document.getElementById("galleryCarousel");
+
+    const viewportEl =
+        document.getElementById("galleryViewport");
+
+    const trackEl =
+        document.getElementById("galleryTrack");
+
+    const prevEl =
+        document.getElementById("galleryPrev");
+
+    const nextEl =
+        document.getElementById("galleryNext");
+
+    const dotsEl =
+        document.getElementById("galleryDots");
+
+    const sectionEl =
+        document.getElementById("gallery");
+
+    if (!carouselEl || !trackEl) {
+        return;
+    }
+
+    const slides =
+        Array.from(trackEl.querySelectorAll(".gallery-slide"));
+
+    const total = slides.length;
+
+    if (total === 0) {
+        return;
+    }
+
+    const AUTO_DELAY = 4500;   /* ms between auto slides */
+    const SWIPE_MIN  = 40;     /* px needed for a swipe   */
+
+    let index = 0;
+
+    let autoTimer = null;
+
+    let hoverPaused = false;
+
+    let inView = true;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchDeltaX = 0;
+    let swiping = false;
+
+
+    /* ---- Dots ---- */
+
+    const dotButtons = [];
+
+    if (dotsEl) {
+
+        dotsEl.innerHTML = "";
+
+        slides.forEach(function (slide, i) {
+
+            const dot = document.createElement("button");
+
+            dot.type = "button";
+
+            dot.className = "gallery-dot";
+
+            dot.setAttribute(
+                "aria-label",
+                "Go to photo " + (i + 1)
+            );
+
+            dot.addEventListener("click", function () {
+
+                goTo(i);
+
+                restartAuto();
+
+            });
+
+            dotsEl.appendChild(dot);
+
+            dotButtons.push(dot);
+
+        });
+
+    }
+
+
+    /* ---- Render ---- */
+
+    function render() {
+
+        trackEl.style.transform =
+            "translate3d(" + (-index * 100) + "%, 0, 0)";
+
+        dotButtons.forEach(function (dot, i) {
+
+            const active = (i === index);
+
+            dot.classList.toggle("is-active", active);
+
+            dot.setAttribute(
+                "aria-current",
+                active ? "true" : "false"
+            );
+
+        });
+
+    }
+
+
+    function goTo(i) {
+
+        index = ((i % total) + total) % total;
+
+        render();
+
+    }
+
+
+    function next() { goTo(index + 1); }
+
+    function prev() { goTo(index - 1); }
+
+
+    /* ---- Auto advance ---- */
+
+    function stopAuto() {
+
+        if (autoTimer !== null) {
+
+            clearInterval(autoTimer);
+
+            autoTimer = null;
+
+        }
+
+    }
+
+
+    function startAuto() {
+
+        stopAuto();
+
+        if (total < 2) {
+            return;
+        }
+
+        autoTimer = setInterval(function () {
+
+            if (hoverPaused || !inView || document.hidden) {
+                return;
+            }
+
+            next();
+
+        }, AUTO_DELAY);
+
+    }
+
+
+    function restartAuto() {
+
+        startAuto();
+
+    }
+
+
+  
+/* ---- RELIABLE GALLERY ARROW CLICK HANDLING ---- */
+
+/*
+  Capture clicks at document level.
+  This also handles clicks when another gallery
+  layer sits above the visible navigation buttons.
+*/
+
+function isInsideButton(el, x, y) {
+
+    if (!el) return false;
+
+    const rect = el.getBoundingClientRect();
+
+    return (
+        x >= rect.left &&
+        x <= rect.right &&
+        y >= rect.top &&
+        y <= rect.bottom
+    );
+
+}
+
+document.addEventListener("click", function(event) {
+
+    const target = event.target;
+
+    const directPrev =
+        prevEl && (
+            target === prevEl ||
+            prevEl.contains(target)
+        );
+
+    const directNext =
+        nextEl && (
+            target === nextEl ||
+            nextEl.contains(target)
+        );
+
+    const clickedPrev =
+        directPrev ||
+        isInsideButton(prevEl, event.clientX, event.clientY);
+
+    const clickedNext =
+        directNext ||
+        isInsideButton(nextEl, event.clientX, event.clientY);
+
+    if (!clickedPrev && !clickedNext) {
+        return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    if (clickedPrev) {
+        prev();
+    } else {
+        next();
+    }
+
+    restartAuto();
+
+}, true);
+
+
+
+    /* ---- Keyboard ---- */
+
+    carouselEl.addEventListener("keydown", function (event) {
+
+        if (event.key === "ArrowLeft") {
+
+            event.preventDefault();
+
+            prev();
+
+            restartAuto();
+
+        } else if (event.key === "ArrowRight") {
+
+            event.preventDefault();
+
+            next();
+
+            restartAuto();
+
+        }
+
+    });
+
+
+    /* ---- Pause while hovering (mouse only) ---- */
+
+    carouselEl.addEventListener("pointerenter", function (event) {
+
+        if (event.pointerType === "mouse") {
+            hoverPaused = true;
+        }
+
+    });
+
+
+    carouselEl.addEventListener("pointerleave", function (event) {
+
+        if (event.pointerType === "mouse") {
+            hoverPaused = false;
+        }
+
+    });
+
+
+    carouselEl.addEventListener("focusin", function () {
+
+        hoverPaused = true;
+
+    });
+
+
+    carouselEl.addEventListener("focusout", function () {
+
+        hoverPaused = false;
+
+    });
+
+
+    /* ---- Touch swipe ---- */
+
+    if (viewportEl) {
+
+        viewportEl.addEventListener("touchstart", function (event) {
+
+            const touch = event.changedTouches[0];
+
+            touchStartX = touch.clientX;
+
+            touchStartY = touch.clientY;
+
+            touchDeltaX = 0;
+
+            swiping = false;
+
+        }, { passive: true });
+
+
+        viewportEl.addEventListener("touchmove", function (event) {
+
+            const touch = event.changedTouches[0];
+
+            touchDeltaX = touch.clientX - touchStartX;
+
+            const deltaY = touch.clientY - touchStartY;
+
+            if (Math.abs(touchDeltaX) > Math.abs(deltaY)) {
+
+                swiping = true;
+
+            }
+
+        }, { passive: true });
+
+
+        viewportEl.addEventListener("touchend", function () {
+
+            if (swiping && Math.abs(touchDeltaX) > SWIPE_MIN) {
+
+                if (touchDeltaX < 0) {
+
+                    next();
+
+                } else {
+
+                    prev();
+
+                }
+
+                restartAuto();
+
+            }
+
+            swiping = false;
+
+            touchDeltaX = 0;
+
+        }, { passive: true });
+
+    }
+
+
+    /* ---- Pause when the section is off screen ---- */
+
+    if ("IntersectionObserver" in window && sectionEl) {
+
+        const observer = new IntersectionObserver(
+
+            function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    inView = entry.isIntersecting;
+
+                });
+
+            },
+
+            { threshold: 0.2 }
+
+        );
+
+        observer.observe(sectionEl);
+
+    }
+
+
+    /* ---- Pause when the browser tab is hidden ---- */
+
+    document.addEventListener("visibilitychange", function () {
+
+        if (document.hidden) {
+
+            stopAuto();
+
+        } else {
+
+            startAuto();
+
+        }
+
+    });
+
+
+    /* ---- Boot ---- */
+
+    render();
+
+    startAuto();
+
+})();
+
+
+/* =====================================
+   RSVP FORM — WHATSAPP SUBMISSION
+===================================== */
+
+const rsvpForm =
+    document.getElementById("rsvpForm");
+
+const rsvpAttendance =
+    document.getElementById("rsvpAttendance");
+
+const rsvpGuests =
+    document.getElementById("rsvpGuests");
+
+
+/* Disable guest count when not attending */
+
+rsvpAttendance.addEventListener("change", function() {
+
+    const isAttending =
+
+        this.value === "Yes, I will attend";
+
+    rsvpGuests.disabled = !isAttending;
+
+    rsvpGuests.required = isAttending;
+
+    if (!isAttending) {
+
+        rsvpGuests.value = "1";
+
+    }
+
+});
+
+
+/* Submit RSVP */
+
+rsvpForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const whatsappNumber =
+
+        String(BIRTHDAY.whatsapp || "")
+
+        .replace(/\D/g, "");
+
+
+    if (!/^\d{10,15}$/.test(whatsappNumber)) {
+
+        alert(
+
+            "Please add a valid WhatsApp number in the BIRTHDAY settings."
+
+        );
+
+        return;
+
+    }
+
+
+    const guestName =
+
+        document.getElementById("rsvpGuestName")
+
+        .value.trim();
+
+    const attendance = rsvpAttendance.value;
+
+    const guests =
+
+        rsvpGuests.disabled ? "0" : rsvpGuests.value;
+
+
+    if (!guestName || !attendance) {
+
+        alert("Please complete the required RSVP fields.");
+
+        return;
+
+    }
+
+
+    const message = [
+
+        "Hello! Here is my RSVP for " +
+
+        BIRTHDAY.girlName +
+
+        "'s 1st Birthday celebration. 🎀",
+
+        "",
+
+        "Name: " + guestName,
+
+        "Attendance: " + attendance,
+
+        "Number of guests: " + guests
+
+    ].join("\n");
+
+
+    const whatsappURL =
+
+        "https://wa.me/" +
+
+        whatsappNumber +
+
+        "?text=" +
+
+        encodeURIComponent(message);
+
+
+    window.open(
+
+        whatsappURL,
+
+        "_blank",
+
+        "noopener"
+
+    );
+
+});
+
+</script>
+
+</body>
+</html>
